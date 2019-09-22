@@ -1,30 +1,46 @@
 import jwt from 'jsonwebtoken';
+const bcrypt = require('bcryptjs');
+import '@babel/polyfill';
 import config from 'config';
 import _ from 'lodash';
-import UserModel from '../models/Auth';
+import UserModel from '../models/User';
 import hashPassword from '../helpers/hashPassword';
+import validate from '../helpers/validators/loginValidator';
 
 const Auth = {
   /**
    *
    * @param {object} req
    * @param {object} res
-   * @return {object} user object
+   * @return {object} user token
    */
-  async create(req, res) {
-    if (!req.body.firstName && !req.body.lastName && !req.body.email) {
-      return res.status(400).send({ message: 'All field are required' });
+  async getOne(req, res) {
+    const { email, password } = req.body;
+    const err = validate(email, password);
+    if (err) {
+      return res.status(400).send({ status: 400, message: err.message });
     }
-    let data = await UserModel.create(req.body);
-    if (data.password) {
-      data.password = await hashPassword(data.password);
-    }
-    console.log(data);
-    return res.status(201).send({
-      status: 201,
-      message: 'User created successfully',
-      data
-    });
+    const user = await UserModel.findUser(req.body.email);
+
+    if (!user)
+      return res
+        .status(400)
+        .send({ status: 400, message: 'Invalid email or password' });
+
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword)
+      return res
+        .status(400)
+        .send({ status: 400, message: 'Invalid email or password' });
+
+    const data = await UserModel.genToken(user);
+
+    return res
+      .status(200)
+      .send({ status: 200, message: 'User is successfully logged in', data });
   }
 };
 

@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
-    "@hapi/joi": "^16.1.2",
+    "joi": "*",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.2",
     "express": "^4.17.1",
