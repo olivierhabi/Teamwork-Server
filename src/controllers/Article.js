@@ -1,6 +1,6 @@
 import ArticleModel from '../models/article';
 import articleValidator from '../helpers/validators/articleValidator';
-import auth from '../middleware/auth';
+import { updateExpression } from '@babel/types';
 
 const Article = {
   /**
@@ -23,7 +23,26 @@ const Article = {
     } catch (error) {
       return error.details
         ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ message: SERVER_ERROR });
+        : res.status(500).send({ status: 500, message: 'Server error' });
+    }
+  },
+  async update(req, res) {
+    try {
+      const valid = await articleValidator(req.body);
+      if (valid) {
+        const article = ArticleModel.findOne(req.params.id);
+        if (!article) {
+          return res
+            .status(404)
+            .send({ status: 404, message: 'article not found' });
+        }
+        const updateArticle = ArticleModel.update(req.params.id, req.body);
+        return res.status(200).send(updateArticle);
+      }
+    } catch (error) {
+      return error.details
+        ? res.status(404).send({ status: 404, error: error.details[0].message })
+        : res.status(500).send({ status: 500, message: 'Server error' });
     }
   }
 };
