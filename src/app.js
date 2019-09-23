@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import reflection from './routes/reflection';
 import Users from './routes/users';
 import Auth from './routes/auth';
+import Article from './routes/articles';
 
 const app = express();
 app.use(morgan('dev'));
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1', reflection);
 app.use('/api/v1', Users);
 app.use('/api/v1', Auth);
+app.use('/api/v1', Article);
 
 app.get('/api/v1', (req, res) => {
   return res.status(200).send({
