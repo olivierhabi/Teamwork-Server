@@ -64,7 +64,9 @@ const Reflection = {
       return res.status(404).send({ message: 'reflection not found' });
     }
     const ref = ReflectionModel.delete(req.params.id);
-    return res.status(204).send(ref);
+    return res
+      .status(204)
+      .send({ status: 204, message: 'article successfully deleted', ref });
   }
 };
 
