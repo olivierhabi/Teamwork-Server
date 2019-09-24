@@ -58,10 +58,11 @@ class Reflection {
    * @param {uuid} id
    */
   delete(id) {
+    console.log(id);
     const reflection = this.findOne(id);
-    const index = this.reflection.indexOf(reflection);
+    const index = this.reflections.indexOf(reflection);
     this.reflections.splice(index, 1);
-    return {};
+    return;
   }
 }
 

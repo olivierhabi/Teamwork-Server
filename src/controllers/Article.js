@@ -36,13 +36,34 @@ const Article = {
             .status(404)
             .send({ status: 404, message: 'article not found' });
         }
-        const updateArticle = ArticleModel.update(req.params.id, req.body);
-        return res.status(200).send(updateArticle);
+        const data = ArticleModel.update(req.params.id, req.body);
+        return res.status(200).send({
+          status: 200,
+          message: 'article successfully edited',
+          data
+        });
       }
     } catch (error) {
       return error.details
         ? res.status(404).send({ status: 404, error: error.details[0].message })
         : res.status(500).send({ status: 500, message: 'Server error' });
+    }
+  },
+  async delete(req, res) {
+    try {
+      const article = await ArticleModel.findOne(req.params.id);
+      if (!article) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article not found' });
+      }
+      const deleteArticle = await ArticleModel.delete(req.params.id);
+      return res.status(204).json({
+        status: 204,
+        message: 'article successfully deleted'
+      });
+    } catch (error) {
+      return console.log(error);
     }
   }
 };

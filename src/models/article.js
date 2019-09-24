@@ -48,6 +48,16 @@ class Article {
     this.articles[index].modifiedDate = moment();
     return this.articles[index];
   }
+  /**
+   * @param {uuid} id
+   */
+  delete(id) {
+    console.log(id);
+    const article = this.findOne(id);
+    const index = this.articles.indexOf(article);
+    this.articles.splice(index, 1);
+    return {};
+  }
 }
 
 export default new Article();
