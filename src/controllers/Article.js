@@ -12,6 +12,7 @@ const Article = {
   async create(req, res) {
     try {
       const valid = await articleValidator(req.body);
+      console.log(valid);
       if (valid) {
         const data = await ArticleModel.create(req.body);
         return res.status(201).send({
@@ -58,12 +59,15 @@ const Article = {
           .send({ status: 404, message: 'article not found' });
       }
       const deleteArticle = await ArticleModel.delete(req.params.id);
-      return res.status(204).json({
+      return res.status(204).send({
         status: 204,
-        message: 'article successfully deleted'
+        message: 'article successfully deleted',
+        deleteArticle
       });
     } catch (error) {
-      return console.log(error);
+      return error
+        ? res.status(404).send({ status: 404, error: error })
+        : res.status(500).send({ status: 500, message: 'Server error' });
     }
   }
 };

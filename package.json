@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": " babel-node src/start.js",
-    "dev-start": " nodemon --exec babel-node src/start.js"
+    "dev": " nodemon --exec babel-node src/start.js"
   },
   "keywords": [],
   "author": "",
