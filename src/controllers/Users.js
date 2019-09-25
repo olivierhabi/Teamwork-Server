@@ -17,9 +17,8 @@ const User = {
       const valid = await userValidator(req.body);
       if (valid) {
         let user = await UserModel.create(req.body);
-        if (user.password) {
-          user.password = await hashPassword(user.password);
-        }
+        user.password = await hashPassword(user.password);
+
         const data = await UserModel.genToken(user);
         return res
           .status(201)
@@ -33,7 +32,7 @@ const User = {
     } catch (error) {
       return error.details
         ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ message: SERVER_ERROR });
+        : res.status(500).send({ status: 500, message: 'SERVER_ERROR' });
     }
   },
   /**
@@ -45,9 +44,25 @@ const User = {
   getOne(req, res) {
     const user = UserModel.findOne(req.params.id);
     if (!user) {
-      return res.status(404).send({ message: 'user not found' });
+      return res.status(404).send({ status: 404, message: 'user not found' });
     }
-    return res.status(200).send(user);
+    return res
+      .status(200)
+      .send({ status: 200, message: 'User found', data: user });
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   */
+  getMe(req, res) {
+    const user = UserModel.findOne(req.user.id);
+    if (!user) {
+      return res.status(404).send({ status: 404, message: 'user not found' });
+    }
+    return res
+      .status(200)
+      .send({ status: 200, message: 'Signed in User information found', user });
   }
 };
 
