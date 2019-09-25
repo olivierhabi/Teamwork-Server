@@ -41,7 +41,6 @@ class Article {
   update(id, data) {
     const article = this.findOne(id);
     const index = this.articles.indexOf(article);
-    console.log(index);
     this.articles[index].title = data['title'];
     this.articles[index].article = data['article'];
     this.articles[index].tagList = data['tagList'];
@@ -52,7 +51,6 @@ class Article {
    * @param {uuid} id
    */
   delete(id) {
-    console.log(id);
     const article = this.findOne(id);
     const index = this.articles.indexOf(article);
     this.articles.splice(index, 1);

@@ -7,6 +7,6 @@ const router = express.Router();
 /**Article routes */
 router.post('/articles', auth, Article.create);
 router.patch('/articles/:id', auth, Article.update);
-router.delete('/articles/:id', Article.delete);
+router.delete('/articles/:id', auth, Article.delete);
 
 export default router;
