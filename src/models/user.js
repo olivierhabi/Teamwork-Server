@@ -29,9 +29,6 @@ class Auth {
       address: data.address,
       isAdmin: data.isAdmin
     };
-    // const genToken = {
-    //   token: jwt.sign({ newUser }, config.get('jwtPrivateKey'))
-    // };
     this.users.push(newUser);
     return newUser;
   }
@@ -41,11 +38,8 @@ class Auth {
    * @return {object} token
    */
   genToken(user) {
-    const genToken = {
-      token: jwt.sign({ user }, config.get('jwtPrivateKey'))
-    };
-    // console.log(genToken);
-    return genToken;
+    const token = jwt.sign(user, config.get('jwtPrivateKey'));
+    return token;
   }
   /**
    * @param {uuid} id
