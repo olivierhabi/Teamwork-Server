@@ -1,20 +1,31 @@
 import ArticleModel from '../models/article';
-import articleValidator from '../helpers/validators/articleValidator';
-import { updateExpression } from '@babel/types';
+import CommentModel from '../models/comment';
+import articleValidator, {
+  articleSchema
+} from '../helpers/validators/articleValidator';
 
 const Article = {
   /**
    *
    * @param {object} req
    * @param {object} res
-   * @return {object} reflection object
+   * @return {object} article object
    */
   async create(req, res) {
     try {
       const valid = await articleValidator(req.body);
-      console.log(valid);
       if (valid) {
-        const data = await ArticleModel.create(req.body);
+        const article = await ArticleModel.create(req.body);
+        const data = {
+          id: article.id,
+          title: article.title,
+          article: article.article,
+          tagList: article.tagList,
+          createdOn: article.createdOn,
+          authorId: req.user.id
+        };
+        await ArticleModel.articles.push(data);
+
         return res.status(201).send({
           status: 201,
           message: 'article successfully created',
@@ -27,6 +38,12 @@ const Article = {
         : res.status(500).send({ status: 500, message: 'Server error' });
     }
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
   async update(req, res) {
     try {
       const valid = await articleValidator(req.body);
@@ -50,6 +67,12 @@ const Article = {
         : res.status(500).send({ status: 500, message: 'Server error' });
     }
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
   async delete(req, res) {
     try {
       const article = await ArticleModel.findOne(req.params.id);
@@ -69,6 +92,31 @@ const Article = {
         ? res.status(404).send({ status: 404, error: error })
         : res.status(500).send({ status: 500, message: 'Server error' });
     }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async getOne(req, res) {
+    const article = ArticleModel.findOne(req.params.id);
+    if (!article) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'article not found' });
+    }
+    const comments = CommentModel.findSpecific(req.params.id);
+    const data = {
+      id: article.id,
+      createdOn: article.createdOn,
+      title: article.title,
+      article: article.article,
+      tagList: article.tagList,
+      authorId: article.authorId,
+      comments
+    };
+    return res.status(200).send({ status: 200, data });
   }
 };
 
