@@ -34,7 +34,9 @@ const Reflection = {
   getOne(req, res) {
     const reflection = ReflectionModel.findOne(req.params.id);
     if (!reflection) {
-      return res.status(404).send({ message: 'reflection not found' });
+      return res
+        .status(404)
+        .send({ status: 404, message: 'reflection not found' });
     }
     return res.status(200).send(reflection);
   },

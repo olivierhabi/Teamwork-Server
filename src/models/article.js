@@ -19,10 +19,9 @@ class Article {
       title: data.title,
       article: data.article,
       tagList: data.tagList,
-      createdDate: moment(),
+      createdOn: moment(),
       modifiedDate: moment()
     };
-    this.articles.push(newArticle);
     return newArticle;
   }
   /**
