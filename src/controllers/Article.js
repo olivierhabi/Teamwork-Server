@@ -97,16 +97,26 @@ const Article = {
    *
    * @param {object} req
    * @param {object} res
+   * @return {object} article array
+   */
+  getAll(req, res) {
+    const articles = ArticleModel.findAll();
+    return res.status(200).send(articles);
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
    * @return {object} article object
    */
   async getOne(req, res) {
-    const article = ArticleModel.findOne(req.params.id);
+    const article = await ArticleModel.findOne(req.params.id);
     if (!article) {
       return res
         .status(404)
         .send({ status: 404, message: 'article not found' });
     }
-    const comments = CommentModel.findSpecific(req.params.id);
+    const comments = await CommentModel.findSpecific(req.params.id);
     const data = {
       id: article.id,
       createdOn: article.createdOn,
@@ -117,6 +127,29 @@ const Article = {
       comments
     };
     return res.status(200).send({ status: 200, data });
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async getByTag(req, res) {
+    try {
+      const data = await ArticleModel.findByTag(req.params.tag);
+      if (data.length === 0) {
+        return res.status(404).send({
+          status: 404,
+          message: 'article with the given tag not found'
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        message: `Article with the ${req.params.tag} tag`,
+        data
+      });
+      // console.log(article);
+    } catch (error) {}
   }
 };
 

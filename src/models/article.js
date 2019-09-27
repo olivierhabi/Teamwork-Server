@@ -55,6 +55,32 @@ class Article {
     this.articles.splice(index, 1);
     return {};
   }
+  /**
+   * @param {tag} tag
+   */
+  findByTag(tag) {
+    try {
+      // return 'bobo';
+      const match = [];
+      const article = this.articles;
+      for (let i = 0; i < article.length; i++) {
+        article[i].tagList.filter(tagName => {
+          if (tagName === tag) {
+            match.push(article[i]);
+          }
+        });
+      }
+      return match;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  /**
+   * @return {object} articles array
+   */
+  findAll() {
+    return this.articles;
+  }
 }
 
 export default new Article();
