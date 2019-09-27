@@ -5,6 +5,7 @@ import Users from './routes/users';
 import Auth from './routes/auth';
 import Article from './routes/articles';
 import Comment from './routes/comment';
+import Report from './routes/Reports';
 
 const app = express();
 app.use(morgan('dev'));
@@ -18,6 +19,7 @@ app.use('/api/v1', Users);
 app.use('/api/v1', Auth);
 app.use(api, Article);
 app.use('/api/v1', Comment);
+app.use(api, Report);
 
 app.get('/api/v1', (req, res) => {
   return res.status(200).send({
