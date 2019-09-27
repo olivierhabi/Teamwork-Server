@@ -14,7 +14,7 @@ const Report = {
       if (!article) {
         return res.status(404).send({
           status: 404,
-          message: 'article you are tring to flag not found'
+          message: 'article you are trying to flag not found'
         });
       }
       //   console.log(article);

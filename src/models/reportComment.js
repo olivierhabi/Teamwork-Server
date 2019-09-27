@@ -11,7 +11,7 @@ class Report {
   }
   /**
    *
-   * @return {object} report object
+   * @return {object} comment report object
    */
   create(data) {
     const newReport = {
@@ -22,7 +22,8 @@ class Report {
     return newReport;
   }
   /**
-   * @returns {object} reported article array
+   *
+   * @return {object} reported comment array
    */
   findAll() {
     return this.reports;

@@ -149,7 +149,9 @@ const Article = {
         data
       });
       // console.log(article);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
