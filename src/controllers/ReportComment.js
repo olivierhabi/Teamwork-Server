@@ -46,7 +46,9 @@ const Report = {
     try {
       const reports = await ReportComment.findAll();
       if (reports.length === 0) {
-        res.status(200).send({ status: 200, message: 'No flaged comment' });
+        return res
+          .status(200)
+          .send({ status: 200, message: 'No flaged comment' });
       }
       return res
         .status(200)

@@ -6,8 +6,8 @@ const router = express.Router();
 
 /**Comment routes */
 router.post('/articles/:id/comments', auth, Comment.create);
-router.get('/comments/:id', Comment.getOne);
-router.get('/comments', Comment.getAll);
-router.get('/comments/comments/:id', Comment.getSpecific);
+router.get('/comments/:id', auth, Comment.getOne);
+router.get('/comments', auth, Comment.getAll);
+router.get('/comments/comments/:id', auth, Comment.getSpecific);
 
 export default router;
