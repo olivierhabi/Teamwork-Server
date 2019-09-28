@@ -14,14 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 
 //api version 1
 const api = '/api/v1';
-app.use('/api/v1', reflection);
-app.use('/api/v1', Users);
-app.use('/api/v1', Auth);
+app.use(api, reflection);
+app.use(api, Users);
+app.use(api, Auth);
 app.use(api, Article);
-app.use('/api/v1', Comment);
+app.use(api, Comment);
 app.use(api, Report);
 
-app.get('/api/v1', (req, res) => {
+app.get(api, (req, res) => {
   return res.status(200).send({
     status: 200,
     message: 'Welcome to Teamwork API'
