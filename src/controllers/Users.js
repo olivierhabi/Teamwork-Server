@@ -15,11 +15,19 @@ const User = {
   async create(req, res) {
     try {
       const valid = await userValidator(req.body);
+
+      let user = await UserModel.findUser(req.body.email);
+      if (user)
+        return res
+          .status(400)
+          .send({ status: 400, message: 'User already registered.' });
+
       if (valid) {
         let user = await UserModel.create(req.body);
         user.password = await hashPassword(user.password);
 
         const data = await UserModel.genToken(user);
+
         return res
           .status(201)
           .header('x-auth-token', data.token)
