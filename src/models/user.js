@@ -63,6 +63,12 @@ class Auth {
   findPassword(password) {
     return this.users.find(user => user.password === password);
   }
+  /**
+   * @return {object} return all reflections
+   */
+  findAll() {
+    return this.users;
+  }
 }
 
 export default new Auth();

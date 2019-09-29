@@ -71,6 +71,15 @@ const User = {
     return res
       .status(200)
       .send({ status: 200, message: 'Signed in User information found', user });
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   */
+  getAll(req, res) {
+    const users = UserModel.findAll();
+    return res.status(200).send({ status: 200, message: 'Users found', users });
   }
 };
 
