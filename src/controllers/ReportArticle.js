@@ -1,5 +1,6 @@
 import ReportArticle from '../models/reportArticle';
 import ArticleModel from '../models/article';
+import CommentModel from '../models/comment';
 
 const Report = {
   /**
@@ -82,6 +83,7 @@ const Report = {
 
       await ReportArticle.delete(req.params.id);
       await ArticleModel.delete(report.articleId);
+      await CommentModel.deleteComment(report.articleId);
       return res
         .status(204)
         .send({ status: 204, message: 'report deleted successfully' });

@@ -65,7 +65,9 @@ const Comment = {
    */
   getAll(req, res) {
     const comments = CommentModel.findAll();
-    return res.status(200).send(comments);
+    return res
+      .status(200)
+      .send({ status: 200, messsage: 'all comment found', comments });
   },
   /**
    *

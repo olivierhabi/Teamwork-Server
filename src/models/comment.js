@@ -8,7 +8,6 @@ class Comment {
    */
   constructor() {
     this.comments = [];
-    // console.log(this.comments);
   }
   /**
    *
@@ -40,6 +39,17 @@ class Comment {
    */
   findSpecific(articleId) {
     return this.comments.filter(comments => comments.articleId === articleId);
+  }
+
+  /**
+   * @param {uuid} id
+   */
+  deleteComment(id) {
+    const comments = this.comments.filter(
+      comments => comments.articleId === id
+    );
+    this.comments.splice(0, comments.length);
+    return {};
   }
   /**
    * @param {uuid} id
