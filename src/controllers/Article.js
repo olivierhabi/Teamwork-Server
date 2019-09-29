@@ -55,12 +55,21 @@ const Article = {
             .status(404)
             .send({ status: 404, message: 'article not found' });
         }
-        const data = ArticleModel.update(req.params.id, req.body);
-        return res.status(200).send({
-          status: 200,
-          message: 'article successfully edited',
-          data
-        });
+        if (req.user.id === article.authorId) {
+          const data = ArticleModel.update(req.params.id, req.body);
+          return res.status(200).send({
+            status: 200,
+            message: 'article successfully edited',
+            data
+          });
+        } else {
+          return res
+            .status(404)
+            .send({
+              status: 404,
+              message: 'you ere not authorised to edit this article'
+            });
+        }
       }
     } catch (error) {
       return error.details
