@@ -63,12 +63,10 @@ const Article = {
             data
           });
         } else {
-          return res
-            .status(404)
-            .send({
-              status: 404,
-              message: 'you ere not authorised to edit this article'
-            });
+          return res.status(404).send({
+            status: 404,
+            message: 'you ere not authorised to edit this article'
+          });
         }
       }
     } catch (error) {
@@ -93,6 +91,8 @@ const Article = {
       }
       if (req.user.id === article.authorId || req.user.isAdmin) {
         const deleteArticle = await ArticleModel.delete(req.params.id);
+        const deleteComments = await CommentModel.deleteComment(req.params.id);
+
         return res.status(204).send({
           status: 204,
           message: 'article successfully deleted',
