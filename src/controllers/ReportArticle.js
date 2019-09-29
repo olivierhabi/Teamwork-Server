@@ -57,6 +57,49 @@ const Report = {
     } catch (error) {
       console.log(error);
     }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async delete(req, res, next) {
+    try {
+      const report = await ReportArticle.findOne(req.params.id);
+      console.log(report.articleId);
+      if (!report) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article report not found' });
+      }
+
+      const article = await ArticleModel.findOne(report.articleId);
+      console.log(article);
+      if (!article) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article not found' });
+      }
+
+      await ReportArticle.delete(req.params.id);
+      await ArticleModel.delete(req.params.id);
+      return res
+        .status(204)
+        .send({ status: 204, message: 'report deleted successfully' });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {objetc} report object
+   */
+  async getOne(req, res) {
+    const report = await ReportArticle.findOne(req.params.id);
+    // console.log(report);
   }
 };
 
