@@ -56,6 +56,53 @@ const Report = {
     } catch (error) {
       console.log(error);
     }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async getOne(req, res) {
+    const comment = await ReportComment.findOne(req.params.id);
+    if (!comment) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'reported comment not found' });
+    }
+    return res
+      .status(200)
+      .send({ status: 200, message: 'reported comment found' });
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async delete(req, res) {
+    try {
+      const report = ReportComment.findOne(req.params.id);
+      if (!report) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'comment report not found' });
+      }
+      const comment = await CommentModel.findOne(report.commentId);
+      if (!comment) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'comment not found' });
+      }
+
+      await ReportComment.delete(req.params.id);
+      await CommentModel.delete(report.commentId);
+      return res
+        .status(204)
+        .send({ status: 204, message: 'report deleted successfully' });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
