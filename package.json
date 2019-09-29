@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": " babel-node src/start.js",
-    "dev": " nodemon --exec babel-node src/start.js"
+    "dev": " nodemon --exec babel-node src/start.js",
+    "lint": "eslint server"
   },
   "keywords": [],
   "author": "",

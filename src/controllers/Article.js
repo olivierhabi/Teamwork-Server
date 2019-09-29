@@ -1,5 +1,6 @@
 import ArticleModel from '../models/article';
 import CommentModel from '../models/comment';
+import ReportArticle from '../models/reportArticle';
 import articleValidator, {
   articleSchema
 } from '../helpers/validators/articleValidator';
@@ -81,15 +82,22 @@ const Article = {
           .status(404)
           .send({ status: 404, message: 'article not found' });
       }
-      const deleteArticle = await ArticleModel.delete(req.params.id);
-      return res.status(204).send({
-        status: 204,
-        message: 'article successfully deleted',
-        deleteArticle
-      });
+      if (req.user.id === article.authorId || req.user.isAdmin) {
+        const deleteArticle = await ArticleModel.delete(req.params.id);
+        return res.status(204).send({
+          status: 204,
+          message: 'article successfully deleted',
+          deleteArticle
+        });
+      } else {
+        return res.status(404).send({
+          status: 404,
+          message: 'this is not your article'
+        });
+      }
     } catch (error) {
       return error
-        ? res.status(404).send({ status: 404, error: error })
+        ? res.status(404).send({ status: 404, error: 'Not found' })
         : res.status(500).send({ status: 500, message: 'Server error' });
     }
   },
