@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/articles/:id/comments', auth, Comment.create);
 router.get('/comments/:id', auth, Comment.getOne);
 router.get('/comments', auth, Comment.getAll);
-// router.delete('/comments/:id', Comment.delete);
 router.get('/comments/comments/:id', auth, Comment.getSpecific);
+router.delete('/comments/:id', auth, Comment.delete);
 
 export default router;

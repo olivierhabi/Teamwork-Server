@@ -28,6 +28,23 @@ class Report {
   findAll() {
     return this.reports;
   }
+  /**
+   *
+   * @param {object} id
+   * @returns {object} article object
+   */
+  findOne(id) {
+    return this.reports.find(report => report.id === id);
+  }
+  /**
+   * @param {uuid} id
+   */
+  delete(id) {
+    const report = this.findOne(id);
+    const index = this.reports.indexOf(report);
+    this.reports.splice(index, 1);
+    return {};
+  }
 }
 
 export default new Report();

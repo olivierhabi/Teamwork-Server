@@ -67,7 +67,6 @@ const Report = {
   async delete(req, res, next) {
     try {
       const report = await ReportArticle.findOne(req.params.id);
-      console.log(report.articleId);
       if (!report) {
         return res
           .status(404)
@@ -75,7 +74,6 @@ const Report = {
       }
 
       const article = await ArticleModel.findOne(report.articleId);
-      console.log(article);
       if (!article) {
         return res
           .status(404)
@@ -83,7 +81,7 @@ const Report = {
       }
 
       await ReportArticle.delete(req.params.id);
-      await ArticleModel.delete(req.params.id);
+      await ArticleModel.delete(report.articleId);
       return res
         .status(204)
         .send({ status: 204, message: 'report deleted successfully' });

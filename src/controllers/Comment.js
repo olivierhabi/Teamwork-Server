@@ -81,6 +81,38 @@ const Comment = {
         .send({ status: 404, message: 'comment not found' });
     }
     return res.status(200).send({ status: 200, comment });
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @return {object} article object
+   */
+  async delete(req, res) {
+    try {
+      console.log(req.user.id);
+      const comment = await CommentModel.findOne(req.params.id);
+      if (!comment) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'comment not found' });
+      }
+      if (req.user.id === comment.authorId || req.user.isAdmin) {
+        const deleteComment = await CommentModel.delete(req.params.id);
+        return res.status(204).send({
+          status: 204,
+          message: 'comment successfully deleted',
+          deleteComment
+        });
+      } else {
+        return res.status(404).send({
+          status: 404,
+          message: 'this is not your article'
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

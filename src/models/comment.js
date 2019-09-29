@@ -41,5 +41,14 @@ class Comment {
   findSpecific(articleId) {
     return this.comments.filter(comments => comments.articleId === articleId);
   }
+  /**
+   * @param {uuid} id
+   */
+  delete(id) {
+    const comment = this.findOne(id);
+    const index = this.comments.indexOf(comment);
+    this.comments.splice(index, 1);
+    return {};
+  }
 }
 export default new Comment();
