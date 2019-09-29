@@ -90,7 +90,7 @@ const Comment = {
    */
   async delete(req, res) {
     try {
-      console.log(req.user.id);
+      // console.log(req.user.id);
       const comment = await CommentModel.findOne(req.params.id);
       if (!comment) {
         return res
