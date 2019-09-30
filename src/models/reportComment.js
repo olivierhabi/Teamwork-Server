@@ -7,7 +7,22 @@ class Report {
    * @param {object} data
    */
   constructor() {
-    this.reports = [];
+    this.reports = [
+      {
+        id: '152b1ef7-9d7d-4000-90f5-c1ce07c7b9bd',
+        flag: 'copry right violaation',
+        commentId: 'bc32e108-0530-41b9-8781-7baf69ffb196',
+        comment: 'this is awesome article dude!!',
+        createdOn: '2019-09-30T21:14:18.103Z'
+      },
+      {
+        id: 'b43383a3-8860-4d18-82aa-82e589babd37',
+        flag: 'copry right violaation',
+        commentId: 'bc32e108-0530-41b9-8781-7baf69ffb196',
+        comment: 'this is awesome article dude!!',
+        createdOn: '2019-09-30T21:14:19.992Z'
+      }
+    ];
   }
   /**
    *
