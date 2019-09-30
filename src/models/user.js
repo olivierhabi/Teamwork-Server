@@ -9,7 +9,21 @@ class Auth {
    * @param {object} data
    */
   constructor() {
-    this.users = [];
+    this.users = [
+      {
+        id: '92547f3f-3840-42c0-b5bc-0847ba907175',
+        firstName: 'Olivier',
+        lastName: 'Habimana',
+        email: 'habimana@gmail.com',
+        password:
+          '$2a$10$rRXle9pE7AcF13lR6oObcelmOOSpe2iIKiVFVm5YdGs68uR/AM162',
+        gender: 'male',
+        jobRole: 'consultant',
+        department: 'developer',
+        address: 'kicukiro',
+        isAdmin: true
+      }
+    ];
   }
 
   /**

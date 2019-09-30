@@ -7,7 +7,32 @@ class Article {
    * @param {object} data
    */
   constructor() {
-    this.articles = [];
+    this.articles = [
+      {
+        id: 'a1263263-e788-4558-9516-4d9505030b96',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        tagList: ['news', 'consultant'],
+        createdOn: '2019-09-30T19:25:49.121Z',
+        authorId: 'ac9f89f1-e1d4-4b5b-a26e-88172361389a'
+      },
+      {
+        id: '47aea52e-216b-470e-9b2f-659aa8fc7100',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        tagList: ['news', 'consultant'],
+        createdOn: '2019-09-30T19:35:24.954Z',
+        authorId: 'ac9f89f1-e1d4-4b5b-a26e-88172361389a'
+      },
+      {
+        id: '19a7b0f6-94fd-43b5-8c78-c7f5414718e4',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        tagList: ['news', 'consultant'],
+        createdOn: '2019-09-30T20:35:22.404Z',
+        authorId: 'ac9f89f1-e1d4-4b5b-a26e-88172361389a'
+      }
+    ];
   }
   /**
    *

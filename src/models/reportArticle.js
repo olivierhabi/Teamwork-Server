@@ -8,7 +8,16 @@ class Report {
    * @param {object} data
    */
   constructor() {
-    this.reports = [];
+    this.reports = [
+      {
+        id: '1f7f07c6-6df5-4a15-9355-9ee629b80656',
+        flag: 'copyright violation',
+        articleId: '47aea52e-216b-470e-9b2f-659aa8fc7100',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        createdOn: '2019-09-30T20:16:44.330Z'
+      }
+    ];
   }
   /**
    *

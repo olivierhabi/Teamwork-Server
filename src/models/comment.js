@@ -7,7 +7,24 @@ class Comment {
    * @param {object} data
    */
   constructor() {
-    this.comments = [];
+    this.comments = [
+      {
+        createdOn: '2019-09-30T19:43:15.786Z',
+        articleTitle: 'Hello word',
+        comment: 'this is awesome article dude!!',
+        commentId: '6acb9086-252e-4332-ad4c-28d15edc52df',
+        authorId: '92547f3f-3840-42c0-b5bc-0847ba907175',
+        articleId: '47aea52e-216b-470e-9b2f-659aa8fc7100'
+      },
+      {
+        createdOn: '2019-09-30T20:36:31.538Z',
+        articleTitle: 'Hello word',
+        comment: 'this is awesome article dude!!',
+        commentId: 'bc32e108-0530-41b9-8781-7baf69ffb196',
+        authorId: '92547f3f-3840-42c0-b5bc-0847ba907175',
+        articleId: '19a7b0f6-94fd-43b5-8c78-c7f5414718e4'
+      }
+    ];
   }
   /**
    *
