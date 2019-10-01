@@ -25,6 +25,13 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
     'no-plusplus': 'off',
-    'import/no-cycle': 'off'
+    'import/no-cycle': 'off',
+    'import/no-unresolved': 'off',
+    'spaced-comment': 'off',
+    'no-else-return': 'off',
+    'import/order': 'off',
+    'import/newline-after-import': 'off',
+    'import/first': 'off',
+    'prefer-const': 'off'
   }
 };
