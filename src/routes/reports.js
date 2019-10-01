@@ -1,7 +1,7 @@
 import express from 'express';
-import ReportArticle from '../controllers/ReportArticle';
-import ReportComment from '../controllers/ReportComment';
-import Article from '../controllers/Article';
+import ReportArticle from '../controllers/reportArticle';
+import ReportComment from '../controllers/reportComment';
+import Article from '../controllers/article';
 import auth from '../middleware/auth';
 import admin from '../middleware/admin';
 
