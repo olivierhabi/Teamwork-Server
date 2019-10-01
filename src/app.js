@@ -19,7 +19,7 @@ app.use(api, Article);
 app.use(api, Comment);
 app.use(api, Report);
 
-app.get(api, (req, res) => {
+app.get('/', (req, res) => {
   return res.status(200).send({
     status: 200,
     message: 'Welcome to Teamwork API'
