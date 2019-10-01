@@ -1,6 +1,6 @@
 import express from 'express';
-import Article from '../controllers/Article';
-import ReportArticle from '../controllers/ReportArticle';
+import Article from '../controllers/article';
+import ReportArticle from '../controllers/reportArticle';
 import auth from '../middleware/auth';
 import admin from '../middleware/admin';
 

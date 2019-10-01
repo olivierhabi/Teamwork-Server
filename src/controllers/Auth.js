@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 import '@babel/polyfill';
 import config from 'config';
 import _ from 'lodash';
-import UserModel from '../models/User';
+import UserModel from '../models/user';
 import hashPassword from '../helpers/hashPassword';
 import validate from '../helpers/validators/loginValidator';
 

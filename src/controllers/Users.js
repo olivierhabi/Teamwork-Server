@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import _ from 'lodash';
-import UserModel from '../models/User';
+import UserModel from '../models/user';
 import hashPassword from '../helpers/hashPassword';
 import userValidator from '../helpers/validators/signupValidator';
 

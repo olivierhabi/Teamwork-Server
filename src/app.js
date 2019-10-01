@@ -4,7 +4,7 @@ import Users from './routes/users';
 import Auth from './routes/auth';
 import Article from './routes/articles';
 import Comment from './routes/comment';
-import Report from './routes/Reports';
+import Report from './routes/reports';
 
 const app = express();
 app.use(morgan('dev'));

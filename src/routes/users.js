@@ -1,5 +1,5 @@
 import express from 'express';
-import Users from '../controllers/Users';
+import Users from '../controllers/users';
 import auth from '../middleware/auth';
 import admin from '../middleware/admin';
 
