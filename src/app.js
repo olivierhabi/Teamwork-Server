@@ -1,6 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';
-import reflection from './routes/reflection';
 import Users from './routes/users';
 import Auth from './routes/auth';
 import Article from './routes/articles';
@@ -14,7 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //api version 1
 const api = '/api/v1';
-app.use(api, reflection);
 app.use(api, Users);
 app.use(api, Auth);
 app.use(api, Article);
