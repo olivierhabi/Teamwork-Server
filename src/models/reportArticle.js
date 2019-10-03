@@ -1,6 +1,5 @@
 import moment from 'moment';
 import uuid from 'uuid';
-import Article from '../controllers/article';
 
 class Report {
   /**

@@ -2,6 +2,7 @@ import express from 'express';
 import Article from '../controllers/article';
 import auth from '../middleware/auth';
 import ValidateArticle from '../helpers/validators/articleValidator';
+
 const { validate } = ValidateArticle;
 
 const router = express.Router();

@@ -11,9 +11,9 @@ const router = express.Router();
 
 /** Report routes */
 router.post('/reports/:id/articles', auth, validate, ReportArticle.create);
-router.get('/reports/articles', [auth, admin], ReportArticle.getAll);
+router.get('/reports/articles', auth, admin, ReportArticle.getAll);
 router.post('/reports/:id/comments', auth, validate, ReportComment.create);
-router.get('/reports/comments', [auth, admin], ReportComment.getAll);
+router.get('/reports/comments', auth, admin, ReportComment.getAll);
 
 //get reported article and delete
 router.get('/reports/articles/:id', ReportArticle.getOne);

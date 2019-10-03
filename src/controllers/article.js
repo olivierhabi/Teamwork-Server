@@ -1,14 +1,14 @@
 import ArticleModel from '../models/article';
 import CommentModel from '../models/comment';
 
-const Article = {
+class Article {
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async create(req, res) {
+  static async create(req, res) {
     const article = await ArticleModel.create(req.body);
     const data = {
       id: article.id,
@@ -25,14 +25,14 @@ const Article = {
       message: 'article successfully created',
       data
     });
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async update(req, res) {
+  static async update(req, res) {
     const article = ArticleModel.findOne(req.params.id);
     if (!article) {
       return res
@@ -49,62 +49,56 @@ const Article = {
     } else {
       return res.status(404).send({
         status: 404,
-        message: 'you ere not authorised to edit this article'
+        message: 'you are not authorised to edit this article'
       });
     }
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async delete(req, res) {
-    try {
-      const article = await ArticleModel.findOne(req.params.id);
-      if (!article) {
-        return res
-          .status(404)
-          .send({ status: 404, message: 'article not found' });
-      }
-      if (req.user.id === article.authorId || req.user.isAdmin) {
-        const deleteArticle = await ArticleModel.delete(req.params.id);
-        const deleteComments = await CommentModel.deleteComment(req.params.id);
-
-        return res.status(204).send({
-          status: 204,
-          message: 'article successfully deleted',
-          deleteArticle
-        });
-      } else {
-        return res.status(404).send({
-          status: 404,
-          message: 'this is not your article'
-        });
-      }
-    } catch (error) {
-      return error
-        ? res.status(404).send({ status: 404, error: 'Not found' })
-        : res.status(500).send({ status: 500, message: 'Server error' });
+  static async delete(req, res) {
+    const article = await ArticleModel.findOne(req.params.id);
+    if (!article) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'article not found' });
     }
-  },
+    if (req.user.id === article.authorId || req.user.isAdmin) {
+      const deleteArticle = await ArticleModel.delete(req.params.id);
+      const deleteComments = await CommentModel.deleteComment(req.params.id);
+
+      return res.status(204).send({
+        status: 204,
+        message: 'article successfully deleted',
+        deleteArticle
+      });
+    } else {
+      return res.status(404).send({
+        status: 404,
+        message: 'this is not your article'
+      });
+    }
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article array
    */
-  getAll(req, res) {
+  static getAll(req, res) {
     const articles = ArticleModel.findAll();
     return res.status(200).send(articles);
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async getOne(req, res) {
+  static async getOne(req, res) {
     const article = await ArticleModel.findOne(req.params.id);
     if (!article) {
       return res
@@ -122,32 +116,27 @@ const Article = {
       comments
     };
     return res.status(200).send({ status: 200, data });
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async getByTag(req, res) {
-    try {
-      const data = await ArticleModel.findByTag(req.params.tag);
-      if (data.length === 0) {
-        return res.status(404).send({
-          status: 404,
-          message: 'article with the given tag not found'
-        });
-      }
-      return res.status(200).send({
-        status: 200,
-        message: `Article with the ${req.params.tag} tag`,
-        data
+  static async getByTag(req, res) {
+    const data = await ArticleModel.findByTag(req.params.tag);
+    if (data.length === 0) {
+      return res.status(404).send({
+        status: 404,
+        message: 'article with the given tag not found'
       });
-      // console.log(article);
-    } catch (error) {
-      console.log(error);
     }
+    return res.status(200).send({
+      status: 200,
+      message: `Article with the ${req.params.tag} tag`,
+      data
+    });
   }
-};
+}
 
 export default Article;
