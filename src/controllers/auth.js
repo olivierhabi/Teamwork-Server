@@ -4,8 +4,6 @@ import '@babel/polyfill';
 import config from 'config';
 import _ from 'lodash';
 import UserModel from '../models/user';
-import hashPassword from '../helpers/hashPassword';
-import validate from '../helpers/validators/loginValidator';
 
 const Auth = {
   /**
@@ -15,11 +13,6 @@ const Auth = {
    * @return {object} user token
    */
   async getOne(req, res) {
-    const { email, password } = req.body;
-    const err = validate(email, password);
-    if (err) {
-      return res.status(400).send({ status: 400, message: err.message });
-    }
     const user = await UserModel.findUser(req.body.email);
 
     if (!user)

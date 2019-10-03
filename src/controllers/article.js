@@ -1,9 +1,5 @@
 import ArticleModel from '../models/article';
 import CommentModel from '../models/comment';
-import ReportArticle from '../models/reportArticle';
-import articleValidator, {
-  articleSchema
-} from '../helpers/validators/articleValidator';
 
 const Article = {
   /**
@@ -13,31 +9,22 @@ const Article = {
    * @return {object} article object
    */
   async create(req, res) {
-    try {
-      const valid = await articleValidator(req.body);
-      if (valid) {
-        const article = await ArticleModel.create(req.body);
-        const data = {
-          id: article.id,
-          title: article.title,
-          article: article.article,
-          tagList: article.tagList,
-          createdOn: article.createdOn,
-          authorId: req.user.id
-        };
-        await ArticleModel.articles.push(data);
+    const article = await ArticleModel.create(req.body);
+    const data = {
+      id: article.id,
+      title: article.title,
+      article: article.article,
+      tagList: article.tagList,
+      createdOn: article.createdOn,
+      authorId: req.user.id
+    };
+    await ArticleModel.articles.push(data);
 
-        return res.status(201).send({
-          status: 201,
-          message: 'article successfully created',
-          data
-        });
-      }
-    } catch (error) {
-      return error.details
-        ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ status: 500, message: 'Server error' });
-    }
+    return res.status(201).send({
+      status: 201,
+      message: 'article successfully created',
+      data
+    });
   },
   /**
    *
@@ -46,33 +33,24 @@ const Article = {
    * @return {object} article object
    */
   async update(req, res) {
-    try {
-      const valid = await articleValidator(req.body);
-      if (valid) {
-        const article = ArticleModel.findOne(req.params.id);
-        if (!article) {
-          return res
-            .status(404)
-            .send({ status: 404, message: 'article not found' });
-        }
-        if (req.user.id === article.authorId) {
-          const data = ArticleModel.update(req.params.id, req.body);
-          return res.status(200).send({
-            status: 200,
-            message: 'article successfully edited',
-            data
-          });
-        } else {
-          return res.status(404).send({
-            status: 404,
-            message: 'you ere not authorised to edit this article'
-          });
-        }
-      }
-    } catch (error) {
-      return error.details
-        ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ status: 500, message: 'Server error' });
+    const article = ArticleModel.findOne(req.params.id);
+    if (!article) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'article not found' });
+    }
+    if (req.user.id === article.authorId) {
+      const data = ArticleModel.update(req.params.id, req.body);
+      return res.status(200).send({
+        status: 200,
+        message: 'article successfully edited',
+        data
+      });
+    } else {
+      return res.status(404).send({
+        status: 404,
+        message: 'you ere not authorised to edit this article'
+      });
     }
   },
   /**

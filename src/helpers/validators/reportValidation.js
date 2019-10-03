@@ -1,19 +1,14 @@
 import Joi from 'joi';
 import '@babel/polyfill';
 
-const validateArticle = {
+const validateReportComment = {
   async validate(req, res, next) {
     const schema = Joi.object().keys({
-      title: Joi.string()
+      flag: Joi.string()
         .trim()
         .min(3)
         .max(1024)
-        .required(),
-      article: Joi.string()
-        .trim()
-        .min(10)
-        .required(),
-      tagList: Joi.array().required()
+        .required()
     });
     const { value, error } = Joi.validate(req.body, schema);
     if (error && error.details) {
@@ -25,4 +20,4 @@ const validateArticle = {
   }
 };
 
-export default validateArticle;
+export default validateReportComment;

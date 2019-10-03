@@ -13,35 +13,25 @@ const User = {
    * @return {object} user object
    */
   async create(req, res) {
-    try {
-      const valid = await userValidator(req.body);
+    let userEmail = await UserModel.findUser(req.body.email);
+    if (userEmail)
+      return res
+        .status(400)
+        .send({ status: 400, message: 'User already registered.' });
 
-      let user = await UserModel.findUser(req.body.email);
-      if (user)
-        return res
-          .status(400)
-          .send({ status: 400, message: 'User already registered.' });
+    let user = await UserModel.create(req.body);
+    user.password = await hashPassword(user.password);
 
-      if (valid) {
-        let user = await UserModel.create(req.body);
-        user.password = await hashPassword(user.password);
+    const data = await UserModel.genToken(user);
 
-        const data = await UserModel.genToken(user);
-
-        return res
-          .status(201)
-          .header('x-auth-token', data.token)
-          .send({
-            status: 201,
-            message: 'User created successfully',
-            data
-          });
-      }
-    } catch (error) {
-      return error.details
-        ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ status: 500, message: 'SERVER_ERROR' });
-    }
+    return res
+      .status(201)
+      .header('x-auth-token', data.token)
+      .send({
+        status: 201,
+        message: 'User created successfully',
+        data
+      });
   },
   /**
    *

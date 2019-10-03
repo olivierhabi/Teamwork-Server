@@ -2,11 +2,14 @@ import express from 'express';
 import Users from '../controllers/users';
 import auth from '../middleware/auth';
 import admin from '../middleware/admin';
+import validateUser from '../helpers/validators/signupValidator';
+
+const { validate } = validateUser;
 
 const router = express.Router();
 
-router.post('/auth/signup', Users.create);
-router.get('/users', [auth, admin], Users.getAll);
+router.post('/auth/signup', validate, Users.create);
+router.get('/users', auth, admin, Users.getAll);
 router.get('/me', auth, Users.getMe);
 
 export default router;
