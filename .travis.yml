@@ -9,4 +9,4 @@ before_script:
 scripts:
   - npm run test
 after_success:
-  - npm run ci
+  - npm run coveralls
