@@ -1,5 +1,6 @@
 import ArticleModel from '../models/article';
 import CommentModel from '../models/comment';
+import arraySort from 'array-sort';
 
 class Article {
   /**
@@ -15,8 +16,8 @@ class Article {
       title: article.title,
       article: article.article,
       tagList: article.tagList,
-      createdOn: article.createdOn,
-      authorId: req.user.id
+      authorId: req.user.id,
+      createdOn: article.createdOn
     };
     await ArticleModel.articles.push(data);
 
@@ -90,7 +91,11 @@ class Article {
    */
   static getAll(req, res) {
     const articles = ArticleModel.findAll();
-    return res.status(200).send(articles);
+    return res.status(200).send({
+      status: 200,
+      status: 'success',
+      data: arraySort(articles, articles.createdOn).reverse()
+    });
   }
   /**
    *

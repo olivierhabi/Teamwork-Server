@@ -7,7 +7,24 @@ class Article {
    * @param {object} data
    */
   constructor() {
-    this.articles = [];
+    this.articles = [
+      {
+        id: 'e221282d-fa52-4edf-9a87-9d243d3dd174',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        tagList: ['news', 'consultant'],
+        authorId: 'd1b676cd-9fef-49ae-8988-21469243948b',
+        createdOn: '2019-10-04T06:55:14.928Z'
+      },
+      {
+        id: '18120e39-0b9b-45d8-9bd6-6af4c60fa7e7',
+        title: 'Hello word',
+        article: 'Say hello to world again',
+        tagList: ['news', 'consultant'],
+        authorId: 'd1b676cd-9fef-49ae-8988-21469243948b',
+        createdOn: '2019-10-04T06:57:39.960Z'
+      }
+    ];
   }
   /**
    *
@@ -19,8 +36,8 @@ class Article {
       title: data.title,
       article: data.article,
       tagList: data.tagList,
-      createdOn: moment(),
-      modifiedDate: moment()
+      modifiedDate: moment(),
+      createdOn: moment()
     };
     return newArticle;
   }
@@ -60,7 +77,6 @@ class Article {
    */
   findByTag(tag) {
     try {
-      // return 'bobo';
       const match = [];
       const article = this.articles;
       for (let i = 0; i < article.length; i++) {
