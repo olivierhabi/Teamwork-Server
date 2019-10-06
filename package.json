@@ -6,8 +6,8 @@
   "scripts": {
     "start": " babel-node src/start.js",
     "dev": " nodemon --exec babel-node src/start.js",
-    "test": "nyc mocha src/tests/*js --require @babel/register --timeout==30000 --exit",
-    "coveralls": "nyc --verbose report --reporter=text-lcov  | coveralls",
+    "test": "mocha src/tests/*js --require @babel/register --timeout==30000 --exit",
+    "coveralls": "nyc report  --reporter=text-lcov  | coveralls",
     "ci": "npm run test && npm run coveralls",
     "lint": "eslint src"
   },
