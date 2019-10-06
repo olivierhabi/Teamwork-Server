@@ -16,7 +16,7 @@ describe('User', () => {
         .send({
           firstName: 'Olivier',
           lastName: 'Habimana',
-          email: 'habimana@gmaild.com',
+          email: 'habimana@gmail.com',
           password: 'password1243',
           gender: 'male',
           jobRole: 'consultant',
@@ -32,7 +32,7 @@ describe('User', () => {
         });
     });
   });
-  describe('Signup', () => {
+  describe('Sigin', () => {
     it('User should signin', done => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signin')
@@ -56,7 +56,7 @@ describe('User', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -73,7 +73,7 @@ describe('User', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -92,7 +92,7 @@ describe('Article', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .send({
           title: 'Hello word',
@@ -110,11 +110,11 @@ describe('Article', () => {
   describe('Update article', () => {
     it('User should Update article', done => {
       supertest('http://localhost:3000/api/v1')
-        .patch('/articles/a1263263-e788-4558-9516-4d9505030b96')
+        .patch('/articles/e221282d-fa52-4edf-9a87-9d243d3dd174')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .send({
           title: 'Modified Hello word',
@@ -132,11 +132,11 @@ describe('Article', () => {
   describe('Delete article', () => {
     it('User should Delete article', done => {
       supertest('http://localhost:3000/api/v1')
-        .delete('/articles/a1263263-e788-4558-9516-4d9505030b96')
+        .delete('/articles/e221282d-fa52-4edf-9a87-9d243d3dd174')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -149,11 +149,11 @@ describe('Article', () => {
   describe('Get article by Id', () => {
     it('Should Get article by id', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/articles/47aea52e-216b-470e-9b2f-659aa8fc7100')
+        .get('/articles/18120e39-0b9b-45d8-9bd6-6af4c60fa7e7')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -170,7 +170,7 @@ describe('Article', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -183,11 +183,11 @@ describe('Article', () => {
   describe('Get all articles', () => {
     it('Should Get all articles', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/articles')
+        .get('/feeds')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -203,11 +203,11 @@ describe('Comment', () => {
   describe('Comment to article', () => {
     it('should comment to articles', done => {
       supertest('http://localhost:3000/api/v1')
-        .post('/articles/47aea52e-216b-470e-9b2f-659aa8fc7100/comments')
+        .post('/articles/18120e39-0b9b-45d8-9bd6-6af4c60fa7e7/comments')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .send({
           comment: 'this is awesome article dude!!'
@@ -223,11 +223,11 @@ describe('Comment', () => {
   describe('Get comment by Id', () => {
     it('should get comment by id', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/comments/6acb9086-252e-4332-ad4c-28d15edc52df')
+        .get('/comments/d59a1077-3c58-43fc-9a89-27b55720ffd2')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -244,7 +244,7 @@ describe('Comment', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -257,11 +257,11 @@ describe('Comment', () => {
   describe('Get comment by ArticleId', () => {
     it('should get comment by ArticleId', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/comments/comments/47aea52e-216b-470e-9b2f-659aa8fc7100')
+        .get('/comments/comments/18120e39-0b9b-45d8-9bd6-6af4c60fa7e7')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjOWY4OWYxLWUxZDQtNGI1Yi1hMjZlLTg4MTcyMzYxMzg5YSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRIOWxaRVlnYXVkdkpTU0c1ejlESlVPU1FzaG5EQ3RwNlRlbmEycnJOT2pUaS5ocXk4L1JTTyIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY5NzQ2NTE0fQ.MO03Zhc3l62VSCQCt-XUQ4TnK3V6bPllVlo3meuc-gQ'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -274,11 +274,11 @@ describe('Comment', () => {
   describe('Delete comment by Id', () => {
     it('should delete comment by Id', done => {
       supertest('http://localhost:3000/api/v1')
-        .delete('/comments/6acb9086-252e-4332-ad4c-28d15edc52df')
+        .delete('/comments/d59a1077-3c58-43fc-9a89-27b55720ffd2')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -294,11 +294,11 @@ describe('Report Article', () => {
   describe('Report article by Id', () => {
     it('should Report article by Id', done => {
       supertest('http://localhost:3000/api/v1')
-        .post('/reports/47aea52e-216b-470e-9b2f-659aa8fc7100/articles')
+        .post('/reports/18120e39-0b9b-45d8-9bd6-6af4c60fa7e7/articles')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .send({
           flag: 'copyright violation'
@@ -318,7 +318,7 @@ describe('Report Article', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -328,14 +328,14 @@ describe('Report Article', () => {
         });
     });
   });
-  describe('Get all flaged articles', () => {
-    it('should get all flaged articles', done => {
+  describe('Delete flaged articles', () => {
+    it('should delete flaged articles', done => {
       supertest('http://localhost:3000/api/v1')
-        .delete('/reports/articles/1f7f07c6-6df5-4a15-9355-9ee629b80656')
+        .delete('/reports/articles/c2bb3e1c-17fa-47c3-8df8-21e852b1459d')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -355,7 +355,7 @@ describe('Report Comment', () => {
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkyNTQ3ZjNmLTM4NDAtNDJjMC1iNWJjLTA4NDdiYTkwNzE3NSIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRyUlhsZTlwRTdBY0YxM2xSNm9PYmNlbG1PT1NwZTJpSUtpVkZWbTVZZEdzNjh1Ui9BTTE2MiIsImdlbmRlciI6Im1hbGUiLCJqb2JSb2xlIjoiY29uc3VsdGFudCIsImRlcGFydG1lbnQiOiJkZXZlbG9wZXIiLCJhZGRyZXNzIjoia2ljdWtpcm8iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1Njk4NzA2MTl9.gEijnsqptJ1QCEZ-cy3lRh6techmKEd6TwWXJUsSLMI'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
         .expect('Content-Type', /json/)
         .end((err, res) => {

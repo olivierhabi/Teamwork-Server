@@ -1,7 +1,9 @@
 import moment from 'moment';
 import uuid from 'uuid';
 import jwt from 'jsonwebtoken';
-import config from 'config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class Auth {
   /**
@@ -11,12 +13,12 @@ class Auth {
   constructor() {
     this.users = [
       {
-        id: '92547f3f-3840-42c0-b5bc-0847ba907175',
+        id: 'd1b676cd-9fef-49ae-8988-21469243948b',
         firstName: 'Olivier',
         lastName: 'Habimana',
-        email: 'habimana@gmail.com',
+        email: 'habimana@gmail.gmail',
         password:
-          '$2a$10$rRXle9pE7AcF13lR6oObcelmOOSpe2iIKiVFVm5YdGs68uR/AM162',
+          '$2a$10$XAni54SmN2FRzJRMcosEJuqO.LSdqe5I6eHYihOAy4qHLwOz9jfCG',
         gender: 'male',
         jobRole: 'consultant',
         department: 'developer',
@@ -52,7 +54,7 @@ class Auth {
    * @return {object} token
    */
   genToken(user) {
-    const token = jwt.sign(user, config.get('jwtPrivateKey'));
+    const token = jwt.sign(user, process.env.PIVATE_KEY);
     return token;
   }
   /**

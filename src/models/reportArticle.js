@@ -1,6 +1,5 @@
 import moment from 'moment';
 import uuid from 'uuid';
-import Article from '../controllers/article';
 
 class Report {
   /**
@@ -10,12 +9,12 @@ class Report {
   constructor() {
     this.reports = [
       {
-        id: '1f7f07c6-6df5-4a15-9355-9ee629b80656',
+        id: 'c2bb3e1c-17fa-47c3-8df8-21e852b1459d',
         flag: 'copyright violation',
-        articleId: '47aea52e-216b-470e-9b2f-659aa8fc7100',
+        articleId: '18120e39-0b9b-45d8-9bd6-6af4c60fa7e7',
         title: 'Hello word',
         article: 'Say hello to world again',
-        createdOn: '2019-09-30T20:16:44.330Z'
+        createdOn: '2019-10-04T07:23:14.098Z'
       }
     ];
   }

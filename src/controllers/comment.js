@@ -1,121 +1,100 @@
 import CommentModel from '../models/comment';
 import ArticleModel from '../models/article';
-import commentValidator from '../helpers/validators/commentValidator';
-import { updateExpression } from '@babel/types';
 
-const Comment = {
+class Comment {
   /**
    * @param {object} req
    * @param {object} res
    * @return {object} comment object
    */
-  async create(req, res, next) {
-    try {
-      const valid = await commentValidator(req.body);
-      if (valid) {
-        const article = await ArticleModel.findOne(req.params.id);
-        if (!article) {
-          return res.status(404).send({
-            status: 404,
-            message: 'the article you are trying to comment not found'
-          });
-        }
-
-        const comment = await CommentModel.create(req.body);
-        const data = {
-          createdOn: comment.createdOn,
-          articleTitle: article.title,
-          comment: comment.comment,
-          commentId: comment.commentId,
-          authorId: req.user.id,
-          articleId: req.params.id
-        };
-        await CommentModel.comments.push(data);
-
-        res.status(201).send({
-          status: 201,
-          message: 'comment created successfully',
-          data
-        });
-      }
-    } catch (error) {
-      return error.details
-        ? res.status(404).send({ status: 404, error: error.details[0].message })
-        : res.status(500).send({ status: 500, message: 'Server error' });
+  static async create(req, res) {
+    const article = await ArticleModel.findOne(req.params.id);
+    if (!article) {
+      return res.status(404).send({
+        status: 404,
+        message: 'the article you are trying to comment not found'
+      });
     }
-    next();
-  },
-  async getOne(req, res) {
-    // console.log(req.params.id);
+
+    const comment = await CommentModel.create(req.body);
+    const data = {
+      createdOn: comment.createdOn,
+      articleTitle: article.title,
+      comment: comment.comment,
+      commentId: comment.commentId,
+      authorId: req.user.id,
+      articleId: req.params.id
+    };
+    await CommentModel.comments.push(data);
+
+    res.status(201).send({
+      status: 201,
+      message: 'comment created successfully',
+      data
+    });
+  }
+  static async getOne(req, res) {
     const comment = await CommentModel.findOne(req.params.id);
-    // const comment = CommentModel.findOne(req.params.id);
-    // console.log(comment);
     if (!comment) {
       return res
         .status(404)
         .send({ status: 404, message: 'comment not found' });
     }
     return res.status(200).send({ status: 200, comment });
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} comment array
    */
-  getAll(req, res) {
-    const comments = CommentModel.findAll();
+  static async getAll(req, res) {
+    const comments = await CommentModel.findAll();
     return res
       .status(200)
       .send({ status: 200, messsage: 'all comment found', comments });
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} comment of article
    */
-  getSpecific(req, res) {
-    const comment = CommentModel.findSpecific(req.params.id);
+  static async getSpecific(req, res) {
+    const comment = await CommentModel.findSpecific(req.params.id);
     if (!comment) {
       return res
         .status(404)
         .send({ status: 404, message: 'comment not found' });
     }
     return res.status(200).send({ status: 200, comment });
-  },
+  }
   /**
    *
    * @param {object} req
    * @param {object} res
    * @return {object} article object
    */
-  async delete(req, res) {
-    try {
-      // console.log(req.user.id);
-      const comment = await CommentModel.findOne(req.params.id);
-      if (!comment) {
-        return res
-          .status(404)
-          .send({ status: 404, message: 'comment not found' });
-      }
-      if (req.user.id === comment.authorId || req.user.isAdmin) {
-        const deleteComment = await CommentModel.delete(req.params.id);
-        return res.status(204).send({
-          status: 204,
-          message: 'comment successfully deleted',
-          deleteComment
-        });
-      } else {
-        return res.status(404).send({
-          status: 404,
-          message: 'this is not your article'
-        });
-      }
-    } catch (error) {
-      console.log(error);
+  static async delete(req, res) {
+    const comment = await CommentModel.findOne(req.params.id);
+    if (!comment) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'comment not found' });
+    }
+    if (req.user.id === comment.authorId || req.user.isAdmin) {
+      const deleteComment = await CommentModel.delete(req.params.id);
+      return res.status(204).send({
+        status: 204,
+        message: 'comment successfully deleted',
+        deleteComment
+      });
+    } else {
+      return res.status(404).send({
+        status: 404,
+        message: 'this is not your article'
+      });
     }
   }
-};
-
-module.exports = Comment;
+}
+export default Comment;

@@ -5,6 +5,9 @@ import Auth from './routes/auth';
 import Article from './routes/articles';
 import Comment from './routes/comment';
 import Report from './routes/reports';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.use(morgan('dev'));
@@ -26,7 +29,8 @@ app.get('/', (req, res) => {
   });
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(process.env.PORT, () =>
+  console.log(`Listening on port ${process.env.PORT}`)
+);
 
-module.exports = app;
+export default app;

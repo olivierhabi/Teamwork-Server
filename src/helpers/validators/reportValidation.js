@@ -1,10 +1,10 @@
 import Joi from 'joi';
 import '@babel/polyfill';
 
-const validateComment = {
+const validateReportComment = {
   async validate(req, res, next) {
     const schema = Joi.object().keys({
-      comment: Joi.string()
+      flag: Joi.string()
         .trim()
         .min(3)
         .max(1024)
@@ -20,4 +20,4 @@ const validateComment = {
   }
 };
 
-export default validateComment;
+export default validateReportComment;

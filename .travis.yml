@@ -4,9 +4,9 @@ node_js:
 cache:
   directories:
     - 'node_modules'
-scripts:
-  - npm run test
 before_script:
   - npm install
+scripts:
+  - npm run test
 after_success:
-  - npm run ci
+  - npm run coveralls
