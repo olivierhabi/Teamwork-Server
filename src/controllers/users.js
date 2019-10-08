@@ -1,6 +1,17 @@
 import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import UserModel from '../models/user';
 import hashPassword from '../helpers/hashPassword';
+import token from '../helpers/gentoken';
+
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
 
 class User {
   /**
@@ -9,26 +20,32 @@ class User {
    * @param {object} res
    * @return {object} user object
    */
-  static async create(req, res) {
-    let userEmail = await UserModel.findUser(req.body.email);
-    if (userEmail)
+  static async create(req, res, next) {
+    const password = await hashPassword(req.body.password);
+    const values = [
+      uuidv4(),
+      req.body.firstName,
+      req.body.lastName,
+      req.body.email,
+      password,
+      req.body.gender,
+      req.body.jobRole,
+      req.body.department,
+      req.body.address,
+      req.body.isAdmin
+    ];
+
+    const text = `INSERT INTO users(id, first_name, last_name, email, password, gender, job_role, department, address, is_admin) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`;
+
+    try {
+      const { rows } = await pool.query(text, values);
+      const data = await token(rows[0]);
       return res
-        .status(400)
-        .send({ status: 400, message: 'User already registered.' });
-
-    let user = await UserModel.create(req.body);
-    user.password = await hashPassword(user.password);
-
-    const data = await UserModel.genToken(user);
-
-    return res
-      .status(201)
-      .header('x-auth-token', data.token)
-      .send({
-        status: 201,
-        message: 'User created successfully',
-        data
-      });
+        .status(201)
+        .send({ status: 201, message: 'User created successfully', data });
+    } catch (error) {
+      return res.status(400).send({ status: 400, message: error.detail });
+    }
   }
   /**
    *
@@ -36,14 +53,17 @@ class User {
    * @param {object} res
    * @return {object} user array
    */
+
   static async getOne(req, res) {
-    const user = await UserModel.findOne(req.params.id);
-    if (!user) {
-      return res.status(404).send({ status: 404, message: 'user not found' });
+    const text = `SELECT * FROM users WHERE id = $1`;
+    try {
+      const { rows } = await pool.query(text, [req.params.id]);
+      return res
+        .status(200)
+        .send({ status: 200, message: 'User found', data: rows[0] });
+    } catch {
+      return res.status(404).send({ message: 'User not found' });
     }
-    return res
-      .status(200)
-      .send({ status: 200, message: 'User found', data: user });
   }
   /**
    *
