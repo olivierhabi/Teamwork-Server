@@ -1,16 +1,9 @@
 import express from 'express';
 import Article from '../controllers/article';
 import auth from '../middleware/auth';
-import {
-  validateArticle,
-  validateId
-} from '../helpers/validators/articleValidator';
-// import uuidValidate from '../helpers/validators/uuidValidate';
-// import validateTag from '../helpers/validators/validateTag';
+import { validateArticle } from '../helpers/validators/articleValidator';
 
 const { validate } = validateArticle;
-
-const { validateUuid } = validateId;
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default function(req, res, next) {
+export default (req, res, next) => {
   const token = req.header('x-auth-token');
   if (!token)
     return res
@@ -17,4 +17,4 @@ export default function(req, res, next) {
   } catch (ex) {
     res.status(400).send({ status: 400, message: 'Invalid token' });
   }
-}
+};
