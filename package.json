@@ -11,7 +11,7 @@
     "coveralls": "nyc report  --reporter=text-lcov  | coveralls",
     "ci": "npm run test && npm run coveralls",
     "lint": "eslint src/start.js",
-    "database": "babel-node src/database/index.js"
+    "database": "babel-node src/database/index.js createTables"
   },
   "keywords": [],
   "author": "",

@@ -43,7 +43,7 @@ const createUserTables = () => {
       id UUID PRIMARY KEY,
       first_name VARCHAR(128) NOT NULL,
       last_name VARCHAR(128) NOT NULL,
-      email VARCHAR(128) NOT NULL,
+      email VARCHAR(128) UNIQUE NOT NULL,
       password VARCHAR(128) NOT NULL,
       gender VARCHAR(128) NOT NULL,
       job_role VARCHAR(128) NOT NULL,
@@ -132,12 +132,18 @@ const flagCommentTables = () => {
     });
 };
 
-module.exports = {
-  createArticleTables,
-  createUserTables,
-  createCommentTables,
-  flagArticleTables,
-  flagCommentTables
+pool.on('remove', () => {
+  console.log('client removed');
+  process.exit(0);
+});
+
+const createTables = () => {
+  createArticleTables();
+  createUserTables();
+  createCommentTables();
+  flagArticleTables();
+  flagCommentTables();
 };
+module.exports = createTables;
 
 require('make-runnable');
