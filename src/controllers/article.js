@@ -56,17 +56,17 @@ class Article {
     ];
     const updateOne = `UPDATE articles SET title=($1), article=($2), tag_list=($3), modified_on=($4) WHERE id=($5) returning *`;
 
-    try {
-      const response = await pool.query(updateOne, values);
-      const data = response.rows[0];
-      return res
-        .status(200)
-        .send({ status: 200, message: 'Article updated', data });
-    } catch (error) {
+    const response = await pool.query(updateOne, values);
+    console.log(response.rows.length);
+    if (response.rows.length == 0) {
       return res
         .status(404)
         .send({ status: 404, message: 'article not found' });
     }
+    const data = response.rows[0];
+    return res
+      .status(200)
+      .send({ status: 200, message: 'article updated', data });
   }
   /**
    *
@@ -75,27 +75,15 @@ class Article {
    * @return {object} article object
    */
   static async delete(req, res) {
-    const article = await ArticleModel.findOne(req.params.id);
-    if (!article) {
+    const deleteQuery = `DELETE FROM articles WHERE id=($1) returning *`;
+
+    const { rows } = await pool.query(deleteQuery, [req.params.id]);
+    if (rows.length == 0) {
       return res
         .status(404)
         .send({ status: 404, message: 'article not found' });
     }
-    if (req.user.id === article.authorId || req.user.isAdmin) {
-      const deleteArticle = await ArticleModel.delete(req.params.id);
-      const deleteComments = await CommentModel.deleteComment(req.params.id);
-
-      return res.status(204).send({
-        status: 204,
-        message: 'article successfully deleted',
-        deleteArticle
-      });
-    } else {
-      return res.status(404).send({
-        status: 404,
-        message: 'this is not your article'
-      });
-    }
+    return res.status(204).send({ message: 'deleted' });
   }
   /**
    *
