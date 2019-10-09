@@ -1,6 +1,17 @@
 import ArticleModel from '../models/article';
 import CommentModel from '../models/comment';
 import arraySort from 'array-sort';
+import uuidv4 from 'uuid/v4';
+import moment from 'moment';
+
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
 
 class Article {
   /**
@@ -10,17 +21,19 @@ class Article {
    * @return {object} article object
    */
   static async create(req, res) {
-    const article = await ArticleModel.create(req.body);
-    const data = {
-      id: article.id,
-      title: article.title,
-      article: article.article,
-      tagList: article.tagList,
-      authorId: req.user.id,
-      createdOn: article.createdOn
-    };
-    await ArticleModel.articles.push(data);
+    const values = [
+      uuidv4(),
+      req.body.title,
+      req.body.article,
+      req.body.tagList,
+      req.user.id,
+      moment(new Date())
+    ];
 
+    const text = `INSERT INTO articles( id, title, article, tag_list, author_id, created_on) VALUES($1, $2, $3 ,$4, $5, $6) returning *`;
+
+    const { rows } = await pool.query(text, values);
+    const data = rows[0];
     return res.status(201).send({
       status: 201,
       message: 'article successfully created',
