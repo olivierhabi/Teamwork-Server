@@ -47,24 +47,25 @@ class Article {
    * @return {object} article object
    */
   static async update(req, res) {
-    const article = ArticleModel.findOne(req.params.id);
-    if (!article) {
+    const values = [
+      req.body.title,
+      req.body.article,
+      req.body.tagList,
+      moment(new Date()),
+      req.params.id
+    ];
+    const updateOne = `UPDATE articles SET title=($1), article=($2), tag_list=($3), modified_on=($4) WHERE id=($5) returning *`;
+
+    try {
+      const response = await pool.query(updateOne, values);
+      const data = response.rows[0];
+      return res
+        .status(200)
+        .send({ status: 200, message: 'Article updated', data });
+    } catch (error) {
       return res
         .status(404)
         .send({ status: 404, message: 'article not found' });
-    }
-    if (req.user.id === article.authorId) {
-      const data = ArticleModel.update(req.params.id, req.body);
-      return res.status(200).send({
-        status: 200,
-        message: 'article successfully edited',
-        data
-      });
-    } else {
-      return res.status(404).send({
-        status: 404,
-        message: 'you are not authorised to edit this article'
-      });
     }
   }
   /**
