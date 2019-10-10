@@ -2,10 +2,13 @@ import supertest from 'supertest';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../start';
+import data from './mochData/data';
 
 chai.use(chaiHttp);
 chai.should();
 chai.expect();
+
+const { signup, failSignup, signin, wrongPassword, wrongEmail } = data;
 
 describe('User', () => {
   describe('Signup', () => {
@@ -13,17 +16,7 @@ describe('User', () => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signup')
         .set('Accept', 'application/json')
-        .send({
-          firstName: 'Olivier',
-          lastName: 'Habimana',
-          email: 'habimana@gmail.comyam',
-          password: 'password1243',
-          gender: 'male',
-          jobRole: 'consultant',
-          department: 'developer',
-          address: 'kicukiro',
-          isAdmin: true
-        })
+        .send(signup)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(201);
@@ -37,14 +30,7 @@ describe('User', () => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signup')
         .set('Accept', 'application/json')
-        .send({
-          firstName: 'Olivier',
-          lastName: 'Habimana',
-          email: 'habimana@gmail.r489om',
-          password: 'password1243',
-          gender: 'male',
-          isAdmin: true
-        })
+        .send(failSignup)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(404);
@@ -58,10 +44,7 @@ describe('User', () => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signin')
         .set('Accept', 'application/json')
-        .send({
-          email: 'habimana@gmail.com',
-          password: 'password1243'
-        })
+        .send(signin)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(200);
@@ -75,10 +58,7 @@ describe('User', () => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signin')
         .set('Accept', 'application/json')
-        .send({
-          email: 'habimana@gmail.com',
-          password: 'password1278993'
-        })
+        .send(wrongPassword)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(400);
@@ -92,12 +72,10 @@ describe('User', () => {
       supertest('http://localhost:3000/api/v1')
         .post('/auth/signin')
         .set('Accept', 'application/json')
-        .send({
-          email: 'habimana@gmail.com'
-        })
+        .send(wrongEmail)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(400);
           res.should.be.a('object');
           done();
         });
@@ -106,7 +84,7 @@ describe('User', () => {
   describe('Find User by id', () => {
     it('Find User by id', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/users/bd13a854-33d7-4647-9cff-11e5a0b47a19')
+        .get('/users/1')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .end((err, res) => {

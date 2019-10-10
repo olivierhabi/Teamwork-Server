@@ -18,27 +18,25 @@ class Comment {
    * @return {object} comment object
    */
   static async create(req, res) {
-    if (isValid.isUUID(req.params.id)) {
+    if (isValid.isInt(req.params.id)) {
       const text = `SELECT * FROM articles WHERE id = $1`;
 
       const { rows } = await pool.query(text, [req.params.id]);
 
-      console.log(rows.length);
-      if (!rows) {
+      if (rows.length == 0) {
         return res
           .status(404)
           .send({ status: 404, message: 'article not found' });
       }
 
       const values = [
-        uuidv4(),
         req.body.comment,
         req.user.id,
         rows[0].id,
         rows[0].title,
         moment(new Date())
       ];
-      const textComment = `INSERT INTO comments( comment_id, comment, author_id, article_id, article_title, created_on) VALUES($1, $2, $3, $4, $5, $6) returning *`;
+      const textComment = `INSERT INTO comments(comment, author_id, article_id, article_title, created_on) VALUES($1, $2, $3, $4, $5) returning *`;
 
       const comment = await pool.query(textComment, values);
 

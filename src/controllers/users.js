@@ -22,7 +22,6 @@ class User {
   static async create(req, res, next) {
     const password = await hashPassword(req.body.password);
     const values = [
-      uuidv4(),
       req.body.firstName,
       req.body.lastName,
       req.body.email,
@@ -34,7 +33,7 @@ class User {
       req.body.isAdmin
     ];
 
-    const text = `INSERT INTO users(id, first_name, last_name, email, password, gender, job_role, department, address, is_admin) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`;
+    const text = `INSERT INTO users(first_name, last_name, email, password, gender, job_role, department, address, is_admin) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`;
 
     try {
       const { rows } = await pool.query(text, values);

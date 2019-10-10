@@ -20,7 +20,6 @@ class Article {
    */
   static async create(req, res) {
     const values = [
-      uuidv4(),
       req.body.title,
       req.body.article,
       req.body.tagList,
@@ -28,7 +27,7 @@ class Article {
       moment(new Date())
     ];
 
-    const text = `INSERT INTO articles( id, title, article, tag_list, author_id, created_on) VALUES($1, $2, $3 ,$4, $5, $6) returning *`;
+    const text = `INSERT INTO articles(title, article, tag_list, author_id, created_on) VALUES($1, $2, $3 ,$4, $5) returning *`;
 
     const { rows } = await pool.query(text, values);
     const data = rows[0];
@@ -45,7 +44,7 @@ class Article {
    * @return {object} article object
    */
   static async update(req, res) {
-    if (isValid.isUUID(req.params.id)) {
+    if (isValid.isInt(req.params.id)) {
       const values = [
         req.body.title,
         req.body.article,
@@ -77,7 +76,7 @@ class Article {
    * @return {object} article object
    */
   static async delete(req, res) {
-    if (isValid.isUUID(req.params.id)) {
+    if (isValid.isInt(req.params.id)) {
       const deleteQuery = `DELETE FROM articles WHERE id=($1) returning *`;
 
       const { rows } = await pool.query(deleteQuery, [req.params.id]);
@@ -117,7 +116,7 @@ class Article {
    * @return {object} article object
    */
   static async getOne(req, res) {
-    if (isValid.isUUID(req.params.id)) {
+    if (isValid.isInt(req.params.id)) {
       const comment = `SELECT * FROM comments WHERE article_id = $1`;
       const getComment = await pool.query(comment, [req.params.id]);
       const comments = getComment.rows;

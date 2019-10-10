@@ -2,11 +2,13 @@ import supertest from 'supertest';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../start';
-import moch from './moch/mochArticle';
+import data from './mochData/data';
 
 chai.use(chaiHttp);
 chai.should();
 chai.expect();
+
+const { article, articleWrong } = data;
 
 describe('Article', () => {
   describe('Create article', () => {
@@ -18,11 +20,7 @@ describe('Article', () => {
           'x-auth-token',
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
-        .send({
-          title: 'Hello word',
-          article: 'Say hello to world again',
-          tagList: ['news', 'consultant']
-        })
+        .send(article)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(201);
@@ -31,10 +29,28 @@ describe('Article', () => {
         });
     });
   });
+  describe('Fail to Create article', () => {
+    it('User should fail to create article', done => {
+      supertest('http://localhost:3000/api/v1')
+        .post('/articles')
+        .set('Accept', 'application/json')
+        .set(
+          'x-auth-token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
+        )
+        .send(articleWrong)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.should.be.a('object');
+          done();
+        });
+    });
+  });
   describe('Update article', () => {
     it('User should Update article', done => {
       supertest('http://localhost:3000/api/v1')
-        .patch('/articles/d23215cd-387f-455a-8096-e439fa33bf94')
+        .patch('/articles/1')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
@@ -53,18 +69,45 @@ describe('Article', () => {
         });
     });
   });
-  describe('Delete article', () => {
-    it('User should Delete article', done => {
+  describe('Fail to Update article', () => {
+    it('User should fail to Update article', done => {
       supertest('http://localhost:3000/api/v1')
-        .delete('/articles/67e258a5-1385-4052-8563-cd698c2980b4')
+        .patch('/articles/34')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
         )
+        .send({
+          title: 'Modified Hello word',
+          article: 'Modified and Modified Say hello to world again',
+          tagList: ['news', 'construction', 'Wow']
+        })
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          res.should.have.status(204);
+          res.should.have.status(404);
+          res.should.be.a('object');
+          done();
+        });
+    });
+  });
+  describe('Fail to Update article', () => {
+    it('User should fail to Update article', done => {
+      supertest('http://localhost:3000/api/v1')
+        .patch('/articles/ghjfgg')
+        .set('Accept', 'application/json')
+        .set(
+          'x-auth-token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
+        )
+        .send({
+          title: 'Modified Hello word',
+          article: 'Modified and Modified Say hello to world again',
+          tagList: ['news', 'construction', 'Wow']
+        })
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          res.should.have.status(404);
           res.should.be.a('object');
           done();
         });
@@ -73,7 +116,7 @@ describe('Article', () => {
   describe('Get article by Id', () => {
     it('Should Get article by id', done => {
       supertest('http://localhost:3000/api/v1')
-        .get('/articles/5ea1834c-73bd-45f5-bbb3-806517ee56a7')
+        .get('/articles/1')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
@@ -99,6 +142,57 @@ describe('Article', () => {
         .expect('Content-Type', /json/)
         .end((err, res) => {
           res.should.have.status(200);
+          res.should.be.a('object');
+          done();
+        });
+    });
+  });
+  describe('Delete article', () => {
+    it('User should Delete article', done => {
+      supertest('http://localhost:3000/api/v1')
+        .delete('/articles/1')
+        .set('Accept', 'application/json')
+        .set(
+          'x-auth-token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
+        )
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          res.should.have.status(204);
+          res.should.be.a('object');
+          done();
+        });
+    });
+  });
+  describe('Failed to Delete article', () => {
+    it('User should fail Delete article', done => {
+      supertest('http://localhost:3000/api/v1')
+        .delete('/articles/109')
+        .set('Accept', 'application/json')
+        .set(
+          'x-auth-token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
+        )
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.should.be.a('object');
+          done();
+        });
+    });
+  });
+  describe('Failed to Delete article', () => {
+    it('User should fail Delete article', done => {
+      supertest('http://localhost:3000/api/v1')
+        .delete('/articles/bdfgjvhn')
+        .set('Accept', 'application/json')
+        .set(
+          'x-auth-token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQxYjY3NmNkLTlmZWYtNDlhZS04OTg4LTIxNDY5MjQzOTQ4YiIsImZpcnN0TmFtZSI6Ik9saXZpZXIiLCJsYXN0TmFtZSI6IkhhYmltYW5hIiwiZW1haWwiOiJoYWJpbWFuYUBnbWFpbC5nbWFpbCIsInBhc3N3b3JkIjoiJDJhJDEwJFhBbmk1NFNtTjJGUnpKUk1jb3NFSnVxTy5MU2RxZTVJNmVIWWloT0F5NHFITHdPejlqZkNHIiwiZ2VuZGVyIjoibWFsZSIsImpvYlJvbGUiOiJjb25zdWx0YW50IiwiZGVwYXJ0bWVudCI6ImRldmVsb3BlciIsImFkZHJlc3MiOiJraWN1a2lybyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU3MDE3MTU0N30.HeHESyvCtKGgASmGjsvv6X28d5iZSIsIV-9hoQ59tzM'
+        )
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          res.should.have.status(404);
           res.should.be.a('object');
           done();
         });
