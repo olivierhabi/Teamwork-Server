@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import uuidv4 from 'uuid/v4';
-import UserModel from '../models/user';
 import hashPassword from '../helpers/hashPassword';
 import token from '../helpers/gentoken';
 
@@ -64,29 +63,6 @@ class User {
     } catch {
       return res.status(404).send({ message: 'User not found' });
     }
-  }
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   */
-  static async getMe(req, res) {
-    const user = await UserModel.findOne(req.user.id);
-    if (!user) {
-      return res.status(404).send({ status: 404, message: 'user not found' });
-    }
-    return res
-      .status(200)
-      .send({ status: 200, message: 'Signed in User information found', user });
-  }
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   */
-  static async getAll(req, res) {
-    const users = await UserModel.findAll();
-    return res.status(200).send({ status: 200, message: 'Users found', users });
   }
 }
 

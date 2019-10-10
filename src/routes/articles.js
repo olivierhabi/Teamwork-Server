@@ -12,7 +12,6 @@ router.post('/articles', auth, validate, Article.create);
 router.patch('/articles/:id', auth, validate, Article.update);
 router.delete('/articles/:id', auth, Article.delete);
 router.get('/articles/:id', auth, Article.getOne);
-router.get('/articles/tag/:tag', auth, Article.getByTag);
 router.get('/feeds', auth, Article.getAll);
 
 export default router;

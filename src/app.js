@@ -4,7 +4,6 @@ import Users from './routes/users';
 import Auth from './routes/auth';
 import Article from './routes/articles';
 import Comment from './routes/comment';
-import Report from './routes/reports';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,7 +19,6 @@ app.use(api, Users);
 app.use(api, Auth);
 app.use(api, Article);
 app.use(api, Comment);
-app.use(api, Report);
 
 app.get('/', (req, res) => {
   return res.status(200).send({

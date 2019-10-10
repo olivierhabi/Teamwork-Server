@@ -1,9 +1,6 @@
-import ArticleModel from '../models/article';
-import CommentModel from '../models/comment';
-import arraySort from 'array-sort';
+import validator from 'validator';
 import uuidv4 from 'uuid/v4';
 import moment from 'moment';
-
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import { isForOfStatement } from '@babel/types';
@@ -117,26 +114,6 @@ class Article {
     return res.status(200).send({
       status: 200,
       message: 'successfully',
-      data
-    });
-  }
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @return {object} article object
-   */
-  static async getByTag(req, res) {
-    const data = await ArticleModel.findByTag(req.params.tag);
-    if (data.length === 0) {
-      return res.status(404).send({
-        status: 404,
-        message: 'article with the given tag not found'
-      });
-    }
-    return res.status(200).send({
-      status: 200,
-      message: `Article with the ${req.params.tag} tag`,
       data
     });
   }

@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import '@babel/polyfill';
-import UserModel from '../models/user';
 import token from '../helpers/gentoken';
 
 import { Pool } from 'pg';
