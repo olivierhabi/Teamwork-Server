@@ -6,6 +6,7 @@ import moment from 'moment';
 
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+import { isForOfStatement } from '@babel/types';
 
 dotenv.config();
 
@@ -57,7 +58,6 @@ class Article {
     const updateOne = `UPDATE articles SET title=($1), article=($2), tag_list=($3), modified_on=($4) WHERE id=($5) returning *`;
 
     const response = await pool.query(updateOne, values);
-    console.log(response.rows.length);
     if (response.rows.length == 0) {
       return res
         .status(404)
@@ -92,13 +92,17 @@ class Article {
    * @return {object} article array
    */
   static getAll(req, res) {
-    const articles = ArticleModel.findAll();
-    return res.status(200).send({
-      status: 200,
-      status: 'success',
-      data: arraySort(articles, articles.createdOn).reverse()
-    });
+    pool.query(
+      `SELECT * FROM articles ORDER BY created_on DESC`,
+      (err, response) => {
+        if (err) return console(err);
+
+        const data = response.rows;
+        return res.status(200).send({ status: 200, status: 'success', data });
+      }
+    );
   }
+
   /**
    *
    * @param {object} req
@@ -106,23 +110,15 @@ class Article {
    * @return {object} article object
    */
   static async getOne(req, res) {
-    const article = await ArticleModel.findOne(req.params.id);
-    if (!article) {
-      return res
-        .status(404)
-        .send({ status: 404, message: 'article not found' });
-    }
-    const comments = await CommentModel.findSpecific(req.params.id);
-    const data = {
-      id: article.id,
-      createdOn: article.createdOn,
-      title: article.title,
-      article: article.article,
-      tagList: article.tagList,
-      authorId: article.authorId,
-      comments
-    };
-    return res.status(200).send({ status: 200, data });
+    const text = `SELECT * FROM articles WHERE id = $1`;
+
+    const { rows } = await pool.query(text, [req.params.id]);
+    const data = rows[0];
+    return res.status(200).send({
+      status: 200,
+      message: 'successfully',
+      data
+    });
   }
   /**
    *

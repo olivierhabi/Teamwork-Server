@@ -1,5 +1,16 @@
 import CommentModel from '../models/comment';
 import ArticleModel from '../models/article';
+import uuidv4 from 'uuid/v4';
+import moment from 'moment';
+
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
 
 class Comment {
   /**
@@ -8,28 +19,34 @@ class Comment {
    * @return {object} comment object
    */
   static async create(req, res) {
-    const article = await ArticleModel.findOne(req.params.id);
-    if (!article) {
-      return res.status(404).send({
-        status: 404,
-        message: 'the article you are trying to comment not found'
-      });
+    const text = `SELECT * FROM articles WHERE id = $1`;
+
+    const { rows } = await pool.query(text, [req.params.id]);
+
+    console.log(rows.length);
+    if (!rows) {
+      return res
+        .status(404)
+        .send({ status: 404, message: 'article not found' });
     }
 
-    const comment = await CommentModel.create(req.body);
-    const data = {
-      createdOn: comment.createdOn,
-      articleTitle: article.title,
-      comment: comment.comment,
-      commentId: comment.commentId,
-      authorId: req.user.id,
-      articleId: req.params.id
-    };
-    await CommentModel.comments.push(data);
+    const values = [
+      uuidv4(),
+      req.body.comment,
+      req.user.id,
+      rows[0].id,
+      rows[0].title,
+      moment(new Date())
+    ];
+    const textComment = `INSERT INTO comments( comment_id, comment, author_id, article_id, article_title, created_on) VALUES($1, $2, $3, $4, $5, $6) returning *`;
 
-    res.status(201).send({
+    const comment = await pool.query(textComment, values);
+
+    const data = comment.rows[0];
+
+    return res.status(201).send({
       status: 201,
-      message: 'comment created successfully',
+      message: 'comment successfully created',
       data
     });
   }
