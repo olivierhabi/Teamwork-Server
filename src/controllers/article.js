@@ -1,4 +1,4 @@
-import validator from 'validator';
+import isValid from 'validator';
 import uuidv4 from 'uuid/v4';
 import moment from 'moment';
 import { Pool } from 'pg';
@@ -45,25 +45,30 @@ class Article {
    * @return {object} article object
    */
   static async update(req, res) {
-    const values = [
-      req.body.title,
-      req.body.article,
-      req.body.tagList,
-      moment(new Date()),
-      req.params.id
-    ];
-    const updateOne = `UPDATE articles SET title=($1), article=($2), tag_list=($3), modified_on=($4) WHERE id=($5) returning *`;
+    if (isValid.isUUID(req.params.id)) {
+      const values = [
+        req.body.title,
+        req.body.article,
+        req.body.tagList,
+        moment(new Date()),
+        req.params.id
+      ];
+      const updateOne = `UPDATE articles SET title=($1), article=($2), tag_list=($3), modified_on=($4) WHERE id=($5) returning *`;
 
-    const response = await pool.query(updateOne, values);
-    if (response.rows.length == 0) {
+      const response = await pool.query(updateOne, values);
+      if (response.rows.length == 0) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article not found' });
+      }
+      const data = response.rows[0];
       return res
-        .status(404)
-        .send({ status: 404, message: 'article not found' });
+        .status(200)
+        .send({ status: 200, message: 'article updated', data });
     }
-    const data = response.rows[0];
     return res
-      .status(200)
-      .send({ status: 200, message: 'article updated', data });
+      .status(404)
+      .send({ status: 404, message: 'Article id not valid' });
   }
   /**
    *
@@ -72,15 +77,20 @@ class Article {
    * @return {object} article object
    */
   static async delete(req, res) {
-    const deleteQuery = `DELETE FROM articles WHERE id=($1) returning *`;
+    if (isValid.isUUID(req.params.id)) {
+      const deleteQuery = `DELETE FROM articles WHERE id=($1) returning *`;
 
-    const { rows } = await pool.query(deleteQuery, [req.params.id]);
-    if (rows.length == 0) {
-      return res
-        .status(404)
-        .send({ status: 404, message: 'article not found' });
+      const { rows } = await pool.query(deleteQuery, [req.params.id]);
+      if (rows.length == 0) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article not found' });
+      }
+      return res.status(204).send({ message: 'deleted' });
     }
-    return res.status(204).send({ message: 'deleted' });
+    return res
+      .status(404)
+      .send({ status: 404, message: 'Article id not valid' });
   }
   /**
    *
@@ -107,15 +117,30 @@ class Article {
    * @return {object} article object
    */
   static async getOne(req, res) {
-    const text = `SELECT * FROM articles WHERE id = $1`;
+    if (isValid.isUUID(req.params.id)) {
+      const comment = `SELECT * FROM comments WHERE article_id = $1`;
+      const getComment = await pool.query(comment, [req.params.id]);
+      const comments = getComment.rows;
 
-    const { rows } = await pool.query(text, [req.params.id]);
-    const data = rows[0];
-    return res.status(200).send({
-      status: 200,
-      message: 'successfully',
-      data
-    });
+      const text = `SELECT * FROM articles WHERE id = $1`;
+
+      const { rows } = await pool.query(text, [req.params.id]);
+      if (rows.length == 0) {
+        return res
+          .status(404)
+          .send({ status: 404, message: 'article not found' });
+      }
+      const data = rows[0];
+      return res.status(200).send({
+        status: 200,
+        message: 'successfully',
+        data,
+        comments
+      });
+    }
+    return res
+      .status(404)
+      .send({ status: 404, message: 'Article id not valid' });
   }
 }
 
