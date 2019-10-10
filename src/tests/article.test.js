@@ -2,6 +2,7 @@ import supertest from 'supertest';
 import chaiHttp from 'chai-http';
 import chai from 'chai';
 import app from '../start';
+import moch from './moch/mochArticle';
 
 chai.use(chaiHttp);
 chai.should();
@@ -55,7 +56,7 @@ describe('Article', () => {
   describe('Delete article', () => {
     it('User should Delete article', done => {
       supertest('http://localhost:3000/api/v1')
-        .delete('/articles/2ae11165-f576-4015-a531-30ec4864ba54')
+        .delete('/articles/67e258a5-1385-4052-8563-cd698c2980b4')
         .set('Accept', 'application/json')
         .set(
           'x-auth-token',
