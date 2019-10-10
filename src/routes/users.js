@@ -9,8 +9,6 @@ const { validate } = validateUser;
 const router = express.Router();
 
 router.post('/auth/signup', validate, Users.create);
-router.get('/users', auth, admin, Users.getAll);
-router.get('/me', auth, Users.getMe);
 router.get('/users/:id', Users.getOne);
 
 export default router;

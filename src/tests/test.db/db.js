@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE
+  connectionString: process.env.DATABASE_URL
 });
 
 pool.on('connect', () => {
@@ -12,7 +12,7 @@ pool.on('connect', () => {
 });
 
 const createArticleTables = () => {
-  const queryText = `DROP TABLE IF EXISTS articles; CREATE TABLE
+  const queryText = `DROP TABLE IF EXIST; CREATE TABLE
     articles(
       id SERIAL,
       title VARCHAR(128) NOT NULL,
@@ -38,7 +38,7 @@ const createArticleTables = () => {
  * Create User Tables
  */
 const createUserTables = () => {
-  const queryText = `DROP TABLE IF EXISTS users; CREATE TABLE
+  const queryText = `DROP TABLE IF EXIST; CREATE TABLE
     users(
       id SERIAL,
       first_name VARCHAR(128) NOT NULL,
@@ -68,7 +68,7 @@ const createUserTables = () => {
  * Create Comment
  */
 const createCommentTables = () => {
-  const queryText = `DROP TABLE IF EXISTS comments; CREATE TABLE
+  const queryText = `DROP TABLE IF EXIST; CREATE TABLE
   comments(
     comment_id SERIAL,
     comment VARCHAR(128) NOT NULL,

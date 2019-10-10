@@ -7,7 +7,7 @@
     "start": " babel-node src/start.js",
     "db": " babel-node database/index.js",
     "dev": " nodemon --exec babel-node src/start.js",
-    "test": "mocha src/tests/*js --require @babel/register --timeout==30000 --exit",
+    "test": "babel-node src/database/index.js createTables && nyc mocha src/tests/*.js --require @babel/register --timeout==30000 --exit",
     "coveralls": "nyc report  --reporter=text-lcov  | coveralls",
     "ci": "npm run test && npm run coveralls",
     "lint": "eslint src/start.js",
@@ -43,7 +43,8 @@
     "nyc": "^14.1.1",
     "pg": "^7.12.1",
     "supertest": "^4.0.2",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "eslint": "^6.5.1",

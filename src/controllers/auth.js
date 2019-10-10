@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import '@babel/polyfill';
-import UserModel from '../models/user';
 import token from '../helpers/gentoken';
 
 import { Pool } from 'pg';
@@ -9,7 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE
 });
 
 class Auth {

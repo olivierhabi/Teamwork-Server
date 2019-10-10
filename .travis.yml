@@ -1,3 +1,11 @@
+services:
+- postgresql
+before_script:
+- psql -c 'CREATE DATABASE team;' -U postgres
+notifications: 
+  email: false
+sudo: false 
+
 language: node_js
 node_js:
   - 'stable'
@@ -10,3 +18,10 @@ scripts:
   - npm run test
 after_success:
   - npm run coveralls
+
+
+
+
+
+
+
